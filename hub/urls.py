@@ -15,12 +15,12 @@ Including another URLconf
 """
 
 from django.urls import path
-from . import  views
+from . import views
 
 urlpatterns = [
-    #path('',views.index),
-    #path('',views.cinemaList),
-    #path('',views.MovieDetail),
+    path('product/list',views.listProducts),
+    path('product/add',views.addProduct),
+    path('',views.newProduct),
     #path('',views.movieList),
     #path('',views.SignIn)
 ]

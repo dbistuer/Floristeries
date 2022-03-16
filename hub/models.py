@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.core.validators import EmailValidator
 from django.db import models
 from django.db.models import Model
@@ -16,7 +18,11 @@ class Floristeria(Model):
 class Producte(Model):
     name = models.CharField(max_length=50)
     decription = models.CharField(max_length=500)
-    price = models.FloatField()
+    price = models.DecimalField(decimal_places=2, max_digits=4)
+
+    def __str__(self):
+        return self.name
+
 
 class Client(Model):
     nom = models.CharField(max_length=100)
@@ -51,3 +57,4 @@ class Stock(Model):
 
     class Meta:
         unique_together = (("idFloristeria","idProducte"),)
+
