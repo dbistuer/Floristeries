@@ -17,7 +17,7 @@ class Floristeria(Model):
 
 class Producte(Model):
     name = models.CharField(max_length=50)
-    decription = models.CharField(max_length=500)
+    description = models.CharField(max_length=500)
     price = models.DecimalField(decimal_places=2, max_digits=4)
 
     def __str__(self):
