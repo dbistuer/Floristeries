@@ -10,18 +10,19 @@ def addProduct(request):
     if request.method == 'POST':
         name = request.POST['name']
         description = request.POST['description']
-        price = request.POST['price']
+        price = float(request.POST['price'].replace(",","."))
         product = Producte.objects.create(name=name, description=description, price=price)
         return render(request, 'Product/add.html')
     else:
         return render(request, 'Product/add.html')
 
-def newProduct(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        description = request.POST['description']
-        price = request.POST['price']
-        product = Producte.objects.create(name=name,description=description,price=price)
-        return render(request, 'Product/add.html')
-    else:
-        return render(request, 'Product/add.html')
+def detailProduct(request, id):
+    product = Producte.objects.get(id=id)
+    json={'product':product}
+    return render(request, 'Product/detail.html',json)
+
+def boughtElements(request):
+    compra = request.compra
+    elements = Elements.objects.get(Compra=compra)
+    json={'elements':elements}
+    return render(request, 'Compra/show.html')

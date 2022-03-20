@@ -14,15 +14,17 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <td>Detail</td>
                 </tr>
                 </thead>
                 <tbody>
-                {% if not productes.count == 0 %}
+                {% if productes|length != 0 %}
                 {% for product in productes %}
                 <tr>
                     <td>{{product.name}}</td>
                     <td>{{product.description}}</td>
                     <td>{{product.price}}</td>
+                    <td><a class="btn btn-primary" href="{% url 'productDetail' %}/{{product.id}}">Detail</a></td>
                 </tr>
                 {% endfor %}
                 {% else %}

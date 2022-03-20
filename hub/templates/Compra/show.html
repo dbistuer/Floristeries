@@ -1,0 +1,49 @@
+{% extends "../base.html"%}
+
+{% block title %} Products bought {% endblock %}
+
+{% block body %}
+
+<h1>Products</h1>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div clas="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Floristeria</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <td>Total</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% if not elements.count == 0 %}
+                {% for element in elements %}
+                <tr>
+                    <td>{{element.compra_set.data}}</td>
+                    <td>{{element.compra_set.floristeria_set.nom}}</td>
+                    <td>{{element.product_set.name}}</td>
+                    <td>{{element.cantitat}}</td>
+                    <td>{{element.product_set.price}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>sumar cap a dalt</td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
