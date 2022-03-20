@@ -17,6 +17,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% if not productes.count == 0 %}
                 {% for product in productes %}
                 <tr>
                     <td>{{product.name}}</td>
@@ -24,6 +25,13 @@
                     <td>{{product.price}}</td>
                 </tr>
                 {% endfor %}
+                {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endif %}
                 </tbody>
             </table>
         </div>
