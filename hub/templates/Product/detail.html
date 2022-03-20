@@ -1,0 +1,33 @@
+{% extends "../base.html"%}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block body %}
+
+<h1>{{ product.name }} </h1>
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div clas="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <td>Detail</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{product.name}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.price}}</td>
+                    <td><a class="btn btn-primary" href="">Buy</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
