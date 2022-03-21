@@ -47,8 +47,12 @@ def addStock(request):
 
 def editStock(request, id):
     product = Stock.objects.get(id=id)
-    json={'product':Producte.objects.get(id=id)}
-    return render(request, 'Stock/edit.html',json)
+    if request.method == "POST":
+        product.cantitat = int(request.POST['cantitat'])
+        product.save()
+    json = {'product': product}
+    return render(request, 'Stock/edit.html', json)
+
 
 def deleteStock(request, id):
     stock = Stock.objects.get(pk=id)

@@ -1,0 +1,26 @@
+{% extends "../base.html"%}
+
+{% block title %} Add Stock {% endblock %}
+
+{% block body %}
+
+<h2>Add Stock</h2>
+
+<div class="card">
+  <div class="card-body">
+    <form action="{% url 'stockEdit' product.id %}" method="POST">
+        {% csrf_token%}
+        <div class="form-group">
+            <input type="text" id="producte" name="producte" class="form-control" placeholder="10" value="{{ product.Producte.name }}" required/>
+        </div>
+        <div class="form-group">
+            <input type="number" id="cantitat" name="cantitat" class="form-control" value="{{ product.cantitat }}" placeholder="10" required/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block text-black">Save</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
