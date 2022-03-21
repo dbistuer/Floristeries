@@ -48,6 +48,13 @@ def addStock(request):
 def editStock(request, id):
     product = Stock.objects.get(id=id)
     json={'product':Producte.objects.get(id=id)}
-    return render(request, 'Product/detail.html',json)
+    return render(request, 'Stock/edit.html',json)
+
+def deleteStock(request, id):
+    stock = Stock.objects.get(pk=id)
+    stock.delete()
+    productes = Stock.objects.all()
+    return render(request, "Stock/list.html", {"productes": productes})
+
 
 ### END STOCK
