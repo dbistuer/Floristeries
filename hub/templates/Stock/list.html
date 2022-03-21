@@ -12,19 +12,19 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>Price</th>
-                    <td>Detail</td>
+                    <th>cantitat</th>
+                    <td></td>
                 </tr>
                 </thead>
                 <tbody>
                 {% if productes|length != 0 %}
                 {% for product in productes %}
                 <tr>
-                    <td>{{product.name}}</td>
-                    <td>{{product.description}}</td>
-                    <td>{{product.price}}</td>
-                    <td><a class="btn btn-primary" href="{% url 'productDetail' product.id %}">Detail</a></td>
+                    <td>{{product.Producte.name}}</td>
+                    <td>{{product.cantitat}}</td>
+                    <td>{{product.Producte.price}}</td>
+                    <td><a class="btn btn-primary" href="{% url 'stockEdit' product.id %}">Edit</a></td>
                 </tr>
                 {% endfor %}
                 {% else %}

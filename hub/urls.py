@@ -8,6 +8,10 @@ urlpatterns = [
     path('product/detail/<int:id>',views.detailProduct, name='productDetail'),
     #sdfsdf
     path('compra/show/<int:id>',views.boughtElements, name='productsBought'),
+    #stock
+    path('stock/list',views.listStock, name='stockList'),
+    path('stock/add',views.addStock, name='stockAdd'),
+    path('stock/edit/<int:id>',views.editStock, name='stockEdit'),
     #path('',views.movieList),
     #path('',views.SignIn)
 ]
