@@ -18,7 +18,7 @@ def addProduct(request):
 
 def detailProduct(request, id):
     product = Producte.objects.get(id=id)
-    json={'product':product}
+    json={'product':Producte.objects.get(id=id)}
     return render(request, 'Product/detail.html',json)
 
 def boughtElements(request):
