@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .models import *
 # Create your views here.
 ##PRODUCT
+
+def home(request):
+    return render(request,'Floristeria/home.html')
+
 def listProducts(request):
     productes = Producte.objects.all()
     return render(request, "Product/list.html", {"productes": productes})
