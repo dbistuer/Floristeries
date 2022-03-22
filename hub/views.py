@@ -15,7 +15,7 @@ def addProduct(request):
         name = request.POST['name']
         description = request.POST['description']
         price = float(request.POST['price'].replace(",","."))
-        product = Producte.objects.create(name=name, description=description, price=price)
+        Producte.objects.create(name=name, description=description, price=price)
         return render(request, 'Product/add.html')
     else:
         return render(request, 'Product/add.html')
