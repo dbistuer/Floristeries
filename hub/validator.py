@@ -23,15 +23,6 @@ def NIFValidator(value):
     else:
         return value
 
-def IBANValidator(value):
-    if not iban.is_valid(value):
-        raise ValidationError(
-            _('%(value)s is not an even a IBAN'),
-            params={'value': value},
-        )
-    else:
-        return value
-
 def PhoneValidator(value):
     if phonenumbers.is_valid_number(phonenumbers.parse(value,"ES")):
         return value

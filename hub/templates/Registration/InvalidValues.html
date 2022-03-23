@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Invalid values{% endblock %}
+
+{% block body %}
+<p> {{error}}</p>
+
+{% if register %}
+<p><a href="{% url 'signin' %}">Click here to try again</a></p>
+
+{% else %}
+<p><a href="{% url '#' %}">Click here to try again</a></p>
+{% endif %}
+
+{% endblock %}

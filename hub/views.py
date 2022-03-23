@@ -66,3 +66,55 @@ def deleteStock(request, id):
 
 
 ### END STOCK
+
+def SignIn(request):
+    if request.method == 'GET':
+        return render(request, 'Registration/signin.html')
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        DNI = request.POST['DNI']
+        address = request.POST['address']
+        phoneNumber = request.POST['phoneNumber']
+        email = request.POST['email']
+        alias = request.POST['alias']
+        password = request.POST['password']
+
+        # Validate input data
+        if not (name and DNI and address and phoneNumber and email and alias and password):
+            # Missing values
+            return render(request, 'Registration/MissingValues.html')
+
+        error = validate_data(DNI,phoneNumber)
+        if error:
+            json = {'error': error, 'register': True}
+            return render(request, 'Registration/InvalidValues.html', json)
+
+        if User.objects.filter(username=alias).exists():
+            json = {'error': 'Username already exist, you will have to choose another one.', 'register': True}
+            return render(request, 'Registration/InvalidValues.html', json)
+
+        user = User(username=alias, email=email, first_name=name)
+        user.set_password(password)
+        user.save()
+
+        client = Client.objects.get(user=user)
+        client.address = address
+        client.DNI = DNI
+        client.telephone = phoneNumber
+        client.save()
+        return redirect('login')
+
+def validate_data(DNI='', phoneNumber=''):
+    error = ''
+    if DNI:
+        try:
+            DNIValidator(DNI)
+        except:
+            error += 'DNI is not valid.'
+    if phoneNumber:
+        try:
+            PhoneValidator(phoneNumber)
+        except:
+            error += 'Phone number is not valid.   '
+    return error

@@ -19,6 +19,7 @@ from hub.views import *
 
 urlpatterns = [
     path('',home,name='home'),
+    path('signin/', SignIn, name='signin'),
     path('admin/', admin.site.urls, name='admin'),
     path('hub/',include('hub.urls'))
 ]

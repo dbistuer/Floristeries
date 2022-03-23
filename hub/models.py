@@ -2,7 +2,7 @@ from typing import Any
 from django.core.validators import EmailValidator
 from django.db import models
 from django.db.models import Model
-from .validator import DNIValidator, PhoneValidator, IBANValidator, NIFValidator
+from .validator import DNIValidator, PhoneValidator, NIFValidator
 from django.contrib.auth.models import User
 
 
@@ -24,7 +24,6 @@ class Client(Model):
     CP = models.CharField(max_length=5)
     Ciutat = models.CharField(max_length=70)
     Aderca = models.CharField(max_length=200)
-    IBAN = models.CharField(validators=[IBANValidator], max_length=20)
     email = models.CharField(max_length=70, validators=[EmailValidator])
     phone = models.CharField(max_length=14, validators=[PhoneValidator])
     User = models.OneToOneField(User, on_delete=models.DO_NOTHING)
