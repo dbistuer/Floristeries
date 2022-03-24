@@ -6,7 +6,7 @@
 Login
 {% endblock %}
 
-{% block content %}
+{% block body %}
 <head><h2>Login</h2></head>
 {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
@@ -39,8 +39,8 @@ Login
     </div>
     </form>
     {# Assumes you setup the password_reset view in your URLconf #}
-    <p><a href="{% url '#' %}">Lost password?</a></p>
-    <p><a href="{% url 'register' %}">Not registered yet? Create a new account.</a></p>
+    <p><a href="#">Lost password?</a></p>
+    <p><a href="#">Not registered yet? Create a new account.</a></p>
 
 {% endblock %}
     
