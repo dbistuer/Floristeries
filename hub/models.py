@@ -35,15 +35,6 @@ class Client(Model):
     DNI = models.CharField(unique=True, validators=[DNIValidator],max_length=9)
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
-    @receiver(post_save, sender=User)
-    def create_profile(sender, instance, created, **kwargs):
-        if created:
-            Client.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_profile(sender, instance, **kwargs):
-        instance.client.save()
-
 class Producte(Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=500)
