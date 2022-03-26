@@ -127,3 +127,49 @@ def profile(request):
     client = Client.objects.get(user=user)
     json = {'user': client,}
     return render(request, 'User/profile.html', json)
+
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    client = Client.objects.get(user=user)
+    if request.method == 'GET':
+        json = {'user': client, }
+        return render(request, 'User/ModifyProfile.html', json)
+    elif request.method == 'POST':
+        name = request.POST['name']
+        DNI = request.POST['DNI']
+        address = request.POST['address']
+        phoneNumber = request.POST['phoneNumber']
+        email = request.POST['email']
+        alias = request.POST['alias']
+        cardNumber = request.POST['cardNumber']
+
+        error = validate_data(DNI, cardNumber, phoneNumber)
+        if error:
+            json = {'error': error, 'register': False}
+            return render(request, 'registration/InvalidValues.html', json)
+
+        if alias:
+            if User.objects.filter(username=alias).exists() and not user.username == alias:
+                json = {'error': 'Username already exist, you will have to choose another one.', 'register': False}
+                return render(request, 'registration/InvalidValues.html', json)
+            user.username = alias
+        if name:
+            user.first_name = name
+        if email:
+            user.email = email
+
+        user.save()
+
+        if DNI:
+            client.DNI = DNI
+        if cardNumber:
+            client.cardNumber = cardNumber
+        if phoneNumber:
+            client.telephone = phoneNumber
+        if address:
+            client.address = address
+
+        client.save()
+        return redirect('profile')

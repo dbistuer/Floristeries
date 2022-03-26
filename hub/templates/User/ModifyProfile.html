@@ -1,0 +1,103 @@
+
+{% extends "base.html" %}
+
+
+
+{% block title %}
+User management
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 50px">
+    <h2>Edit profile</h2>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name"> 
+                {% if user.user.first_name %}
+                Name: {{user.user.first_name}}
+                {% else %}
+                Name: Not specified
+                {% endif %}</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="name">
+                {% if user.DNI %}
+                DNI: {{user.DNI}}
+                {% else %}
+                DNI: Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="DNI" name="DNI" placeholder="79038471B">
+        </div>
+        <div class="form-group">
+            <label for="address">
+                {% if user.address %}
+                Address: {{user.address}}
+                {% else %}
+                Address: Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="C/Paraguay nº5, Lleida">
+        </div>
+            <div class="form-group">
+            <label for="telephone">{% if user.telephone %}
+                Phone number: {{user.telephone}}
+                {% else %}
+                Phone number: Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="telephone" name="phoneNumber" placeholder="973567802">
+        </div>
+        <div class="form-group">
+            <label for="email">
+                {% if user.user.email %}
+                E-mail: {{user.user.email}}
+                {% else %}
+                E-mail: Not specified
+                {% endif %}</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="alias">
+                {% if user.user.username %}
+                Username: {{user.user.username}}
+                {% else %}
+                Username: Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="alias" name="alias" placeholder="Alias">
+        </div>
+        <div class="form-group">
+            <label for="cardNumber">{% if user.cardNumber %}
+                Card number: {{user.cardNumber}}
+                {% else %}
+                Card number: Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="IBAN">
+        </div>
+        <p><a href="{% url 'password_reset' %}">Click here if you want to change the password</a></p>
+
+        <div align="center">
+            <button type="submit" class="btn btn-primary">Confirm changes</button>
+        </div>
+
+     </form>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384 JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+{% endblock %}
+    
+    
+
