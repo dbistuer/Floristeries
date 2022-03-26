@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import *
 from .validator import *
@@ -119,3 +120,10 @@ def validate_data(DNI='', phoneNumber=''):
         except:
             error += 'Phone number is not valid.   '
     return error
+
+@login_required
+def profile(request):
+    user=request.user
+    client = Client.objects.get(user=user)
+    json = {'user': client,}
+    return render(request, 'User/profile.html', json)

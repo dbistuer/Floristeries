@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block body %}
+
+
+{% if user.user.first_name %}
+<p> Name: {{user.user.first_name}}</p>
+{% else %}
+<p> Name: Not specified</p>
+{% endif %}
+
+
+{% if user.DNI %}
+<p> DNI: {{user.DNI}}</p>
+{% else %}
+<p> DNI: Not specified</p>
+{% endif %}
+
+
+{% if user.address %}
+<p> Address: {{user.address}}</p>
+{% else %}
+<p> Address: Not specified</p>
+{% endif %}
+
+
+{% if user.telephone %}
+<p> Phone number: {{user.telephone}}</p>
+{% else %}
+<p> Phone number: Not specified</p>
+{% endif %}
+
+
+
+{% if user.user.email %}
+<p> E-mail: {{user.user.email}}</p>
+{% else %}
+<p> E-mail: Not specified</p>
+{% endif %}
+
+
+
+{% if user.user.username %}
+<p> Username: {{user.user.username}}</p>
+{% else %}
+<p> Username: Not specified</p>
+{% endif %}
+
+
+{% if user.cardNumber %}
+<p> Card number: {{user.cardNumber}}</p>
+{% else %}
+<p> Card number: Not specified</p>
+{% endif %}
+
+{% endblock %}
