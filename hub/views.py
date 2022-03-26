@@ -104,6 +104,7 @@ def SignIn(request):
         user = User(username=alias, email=email,  password=password,
                     first_name=name,last_name=second_name+' '+last_name,
                     phone=phone, adreca=adress, CP=CP, ciutat=ciutat, tipo=tipo)
+        user.set_password(password)
         user.save()
         client = Client(user=user,DNI=DNI)
         client.save()

@@ -39,7 +39,7 @@ Login
     </div>
     </form>
     {# Assumes you setup the password_reset view in your URLconf #}
-    <p><a href="#">Lost password?</a></p>
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
     <p><a href="{%url 'signin' %}">Not registered yet? Create a new account.</a></p>
 
 {% endblock %}

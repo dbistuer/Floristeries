@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models import Model
 from .validator import DNIValidator, PhoneValidator, NIFValidator
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class User(AbstractUser):
@@ -32,6 +34,15 @@ class Floristeria(Model):
 class Client(Model):
     DNI = models.CharField(unique=True, validators=[DNIValidator],max_length=9)
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+
+    @receiver(post_save, sender=User)
+    def create_profile(sender, instance, created, **kwargs):
+        if created:
+            Client.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_profile(sender, instance, **kwargs):
+        instance.client.save()
 
 class Producte(Model):
     name = models.CharField(max_length=50)
