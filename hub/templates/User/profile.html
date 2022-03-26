@@ -7,45 +7,54 @@ Profile
 {% block body %}
 
 
-{% if user.user.first_name %}
-<p> Name: {{user.user.first_name}}</p>
+{% if client.user.first_name %}
+<p> Name: {{client.user.first_name}}</p>
 {% else %}
 <p> Name: Not specified</p>
 {% endif %}
 
+{% if client.user.second_name %}
+<p> Name: {{client.user.second_name}}</p>
+{% else %}
+<p> Name: Not specified</p>
+{% endif %}
 
-{% if user.DNI %}
-<p> DNI: {{user.DNI}}</p>
+{% if client.user.last_name %}
+<p> Name: {{client.user.last_name}}</p>
+{% else %}
+<p> Name: Not specified</p>
+{% endif %}
+
+{% if client.DNI %}
+<p> DNI: {{client.DNI}}</p>
 {% else %}
 <p> DNI: Not specified</p>
 {% endif %}
 
 
-{% if user.address %}
-<p> Address: {{user.address}}</p>
+{% if client.user.adreca %}
+<p> Address: {{client.user.adreca}}</p>
 {% else %}
 <p> Address: Not specified</p>
 {% endif %}
 
 
-{% if user.telephone %}
-<p> Phone number: {{user.telephone}}</p>
+{% if client.user.phone %}
+<p> Phone number: {{client.user.phone}}</p>
 {% else %}
 <p> Phone number: Not specified</p>
 {% endif %}
 
 
-
-{% if user.user.email %}
-<p> E-mail: {{user.user.email}}</p>
+{% if client.user.email %}
+<p> E-mail: {{client.user.email}}</p>
 {% else %}
 <p> E-mail: Not specified</p>
 {% endif %}
 
 
-
-{% if user.user.username %}
-<p> Username: {{user.user.username}}</p>
+{% if client.user.username %}
+<p> Username: {{client.user.username}}</p>
 {% else %}
 <p> Username: Not specified</p>
 {% endif %}

@@ -75,19 +75,24 @@ def SignIn(request):
 
     if request.method == 'POST':
         name = request.POST['name']
+        second_name = request.POST['second_name']
+        last_name = request.POST['last_name']
         DNI = request.POST['DNI']
-        address = request.POST['address']
-        phoneNumber = request.POST['phoneNumber']
+        ciutat = request.POST['ciutat']
+        CP = request.POST['CP']
+        adress = request.POST['adress']
+        phone = request.POST['phone']
         email = request.POST['email']
         alias = request.POST['alias']
         password = request.POST['password']
+        tipo = request.POST['tipo']
 
         # Validate input data
-        if not (name and DNI and address and phoneNumber and email and alias and password):
+        if not (name and DNI and adress and phone and email and alias and password):
             # Missing values
             return render(request, 'Registration/MissingValues.html')
 
-        error = validate_data(DNI,phoneNumber)
+        error = validate_data(DNI,phone)
         if error:
             json = {'error': error, 'register': True}
             return render(request, 'Registration/InvalidValues.html', json)
@@ -96,14 +101,11 @@ def SignIn(request):
             json = {'error': 'Username already exist, you will have to choose another one.', 'register': True}
             return render(request, 'Registration/InvalidValues.html', json)
 
-        user = User(username=alias, email=email, first_name=name)
-        user.set_password(password)
+        user = User(username=alias, email=email,  password=password,
+                    first_name=name,last_name=second_name+' '+last_name,
+                    phone=phone, adreca=adress, CP=CP, ciutat=ciutat, tipo=tipo)
         user.save()
-
-        client = Client.objects.get(user=user)
-        client.address = address
-        client.DNI = DNI
-        client.telephone = phoneNumber
+        client = Client(user=user,DNI=DNI)
         client.save()
         return redirect('login')
 
@@ -125,7 +127,7 @@ def validate_data(DNI='', phoneNumber=''):
 def profile(request):
     user=request.user
     client = Client.objects.get(user=user)
-    json = {'user': client,}
+    json = {'client': client,}
     return render(request, 'User/profile.html', json)
 
 
@@ -134,18 +136,22 @@ def edit_profile(request):
     user = request.user
     client = Client.objects.get(user=user)
     if request.method == 'GET':
-        json = {'user': client, }
+        json = {'client': client, }
         return render(request, 'User/ModifyProfile.html', json)
     elif request.method == 'POST':
-        name = request.POST['name']
+        first_name = request.POST['first_name']
+        second_name = request.POST['second_name']
+        last_name = request.POST['last_name']
         DNI = request.POST['DNI']
-        address = request.POST['address']
-        phoneNumber = request.POST['phoneNumber']
+        adreca = request.POST['adreca']
+        CP = request.POST['CP']
+        ciutat = request.POST['ciutat']
+        phone = request.POST['phone']
         email = request.POST['email']
         alias = request.POST['alias']
         cardNumber = request.POST['cardNumber']
 
-        error = validate_data(DNI, cardNumber, phoneNumber)
+        error = validate_data(DNI, cardNumber, phone)
         if error:
             json = {'error': error, 'register': False}
             return render(request, 'registration/InvalidValues.html', json)
@@ -156,9 +162,14 @@ def edit_profile(request):
                 return render(request, 'registration/InvalidValues.html', json)
             user.username = alias
         if name:
-            user.first_name = name
+            user.first_name = first_name
         if email:
             user.email = email
+        if phone:
+            client.telephone = phone
+        if adreca and client.adreca != adreca:
+            client.adreca = adreca
+
 
         user.save()
 
@@ -166,10 +177,7 @@ def edit_profile(request):
             client.DNI = DNI
         if cardNumber:
             client.cardNumber = cardNumber
-        if phoneNumber:
-            client.telephone = phoneNumber
-        if address:
-            client.address = address
+
 
         client.save()
         return redirect('profile')

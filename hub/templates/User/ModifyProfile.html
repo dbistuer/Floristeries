@@ -23,8 +23,8 @@ User management
         {% csrf_token %}
         <div class="form-group">
             <label for="name"> 
-                {% if user.user.first_name %}
-                Name: {{user.user.first_name}}
+                {% if client.user.first_name %}
+                Name: {{client.user.first_name}}
                 {% else %}
                 Name: Not specified
                 {% endif %}</label>
@@ -32,8 +32,8 @@ User management
         </div>
         <div class="form-group">
             <label for="name">
-                {% if user.DNI %}
-                DNI: {{user.DNI}}
+                {% if client.DNI %}
+                DNI: {{client.DNI}}
                 {% else %}
                 DNI: Not specified
                 {% endif %}
@@ -42,8 +42,8 @@ User management
         </div>
         <div class="form-group">
             <label for="address">
-                {% if user.address %}
-                Address: {{user.address}}
+                {% if client.address %}
+                Address: {{client.address}}
                 {% else %}
                 Address: Not specified
                 {% endif %}
@@ -51,8 +51,8 @@ User management
             <input type="text" class="form-control" id="address" name="address" placeholder="C/Paraguay nº5, Lleida">
         </div>
             <div class="form-group">
-            <label for="telephone">{% if user.telephone %}
-                Phone number: {{user.telephone}}
+            <label for="telephone">{% if client.telephone %}
+                Phone number: {{client.telephone}}
                 {% else %}
                 Phone number: Not specified
                 {% endif %}
@@ -61,8 +61,8 @@ User management
         </div>
         <div class="form-group">
             <label for="email">
-                {% if user.user.email %}
-                E-mail: {{user.user.email}}
+                {% if client.user.email %}
+                E-mail: {{client.user.email}}
                 {% else %}
                 E-mail: Not specified
                 {% endif %}</label>
@@ -70,8 +70,8 @@ User management
         </div>
         <div class="form-group">
             <label for="alias">
-                {% if user.user.username %}
-                Username: {{user.user.username}}
+                {% if client.user.username %}
+                Username: {{client.user.username}}
                 {% else %}
                 Username: Not specified
                 {% endif %}
@@ -79,8 +79,8 @@ User management
             <input type="text" class="form-control" id="alias" name="alias" placeholder="Alias">
         </div>
         <div class="form-group">
-            <label for="cardNumber">{% if user.cardNumber %}
-                Card number: {{user.cardNumber}}
+            <label for="cardNumber">{% if client.cardNumber %}
+                Card number: {{client.cardNumber}}
                 {% else %}
                 Card number: Not specified
                 {% endif %}

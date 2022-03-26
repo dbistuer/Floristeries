@@ -20,31 +20,51 @@ Sign in
         {% csrf_token %}
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
         </div>
         <div class="form-group">
-            <label for="name">DNI</label>
-            <input type="text" class="form-control" id="DNI" name="DNI" placeholder="79038471B">
+            <label for="second_name">Second Name</label>
+            <input type="text" class="form-control" id="second_name" name="second_name" placeholder="Second name">
         </div>
         <div class="form-group">
-            <label for="address">Your adress</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="C/Paraguay nº5, Lleida">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <label for="DNI">DNI</label>
+            <input type="text" class="form-control" id="DNI" name="DNI" placeholder="79038471B" required>
+        </div>
+        <div class="form-group">
+            <label for="ciutat">City</label>
+            <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Lleida">
+        </div>
+        <div class="form-group">
+            <label for="CP">Postal Code</label>
+            <input type="text" class="form-control" id="CP" name="CP" placeholder="25617">
+        </div>
+        <div class="form-group">
+            <label for="adress">Your adress</label>
+            <input type="text" class="form-control" id="adress" name="adress" placeholder="C/Paraguay nº5">
         </div>
             <div class="form-group">
-            <label for="telephone">Phone number</label>
-            <input type="text" class="form-control" id="telephone" name="phoneNumber" placeholder="973567802">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="973567802">
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="lorenipsum@loren.ipsum" required>
         </div>
         <div class="form-group">
             <label for="alias">User name</label>
-            <input type="text" class="form-control" id="alias" name="alias" placeholder="Alias">
+            <input type="text" class="form-control" id="alias" name="alias" placeholder="Alias" required>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Name">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Name" required>
+        </div>
+        <div class="form-group" hidden>
+            <label for="tipo">Type</label>
+            <input type="password" class="form-control" id="tipo" name="tipo" value="CL" >
         </div>
         <div align="center">
             <button type="submit" class="btn btn-primary">Register</button>

@@ -3,30 +3,35 @@ from django.core.validators import EmailValidator
 from django.db import models
 from django.db.models import Model
 from .validator import DNIValidator, PhoneValidator, NIFValidator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
+
+class User(AbstractUser):
+    CLIENTE = 'CL'
+    FLORISTERIA= 'FL'
+
+    TIPOS_USUARIOS = (
+        (CLIENTE, 'Cliente'),
+        (FLORISTERIA, 'Floristeria'),
+    )
+    tipo = models.CharField(choices=TIPOS_USUARIOS, max_length=2)
+    CP = models.IntegerField()
+    ciutat = models.CharField(max_length=50)
+    adreca = models.CharField(max_length=200)
+    phone = models.CharField(max_length=14, validators=[PhoneValidator])
+
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
 
 # Create your models here.
 class Floristeria(Model):
-    nom = models.CharField(max_length=100)
     NIF = models.CharField(unique=True,max_length=9, validators=[NIFValidator])
-    CP = models.IntegerField()
-    Ciutat = models.CharField(max_length=50)
-    Adreca = models.CharField(max_length=200)
-    email = models.CharField(max_length=70,validators=[EmailValidator])
-    phone = models.CharField(max_length=14,validators=[PhoneValidator])
-    User = models.OneToOneField(User,on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
 
 class Client(Model):
-    nom = models.CharField(max_length=100)
     DNI = models.CharField(unique=True, validators=[DNIValidator],max_length=9)
-    CP = models.CharField(max_length=5)
-    Ciutat = models.CharField(max_length=70)
-    Aderca = models.CharField(max_length=200)
-    email = models.CharField(max_length=70, validators=[EmailValidator])
-    phone = models.CharField(max_length=14, validators=[PhoneValidator])
-    User = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
 class Producte(Model):
     name = models.CharField(max_length=50)

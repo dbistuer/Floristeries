@@ -1,10 +1,10 @@
 from django.contrib import admin
-from hub.models import Floristeria, Compra, Producte, Client, Elements, Stock
+from django.apps import apps
 
-# Register your models here.
-admin.site.register(Floristeria)
-admin.site.register(Client)
-admin.site.register(Producte)
-admin.site.register(Compra)
-admin.site.register(Elements)
-admin.site.register(Stock)
+models = apps.get_app_config('hub').get_models()
+
+for model in models:
+    try:
+        admin.site.register(model)
+    except AlreadyRegistered:
+        pass
