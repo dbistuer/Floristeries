@@ -7,7 +7,7 @@
 User management
 {% endblock %}
 
-{% block content %}
+{% block body %}
 <div class="container" style="margin-top: 50px">
     <h2>Edit profile</h2>
     {% if messages %}
@@ -22,70 +22,92 @@ User management
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
-            <label for="name"> 
-                {% if client.user.first_name %}
-                Name: {{client.user.first_name}}
-                {% else %}
-                Name: Not specified
+            <label for="first_name">
+                Name:
+                {% if not client.user.first_name %}
+                 Not specified
                 {% endif %}</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{client.user.first_name}}" placeholder="Name">
         </div>
         <div class="form-group">
-            <label for="name">
-                {% if client.DNI %}
-                DNI: {{client.DNI}}
-                {% else %}
-                DNI: Not specified
-                {% endif %}
-                </label>
-            <input type="text" class="form-control" id="DNI" name="DNI" placeholder="79038471B">
+            <label for="last_name">
+                Last names:
+                {% if not client.user.last_name %}
+                 Not specified
+                {% endif %}</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{client.user.last_name}}" placeholder="Name">
         </div>
         <div class="form-group">
-            <label for="address">
-                {% if client.address %}
-                Address: {{client.address}}
-                {% else %}
-                Address: Not specified
+            <label for="DNI">
+                DNI:
+                {% if not client.DNI %}
+                 Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="C/Paraguay nº5, Lleida">
+            <input type="text" class="form-control" id="DNI" name="DNI" value="{{client.DNI}}" placeholder="79038471B">
         </div>
-            <div class="form-group">
-            <label for="telephone">{% if client.telephone %}
-                Phone number: {{client.telephone}}
-                {% else %}
-                Phone number: Not specified
+        <div class="form-group">
+            <label for="phone">
+                Phone number:
+                {% if not client.user.phone %}
+                 Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="telephone" name="phoneNumber" placeholder="973567802">
+            <input type="number" class="form-control" id="phone" name="phone" value="{{client.user.phone}}" placeholder="973567802">
         </div>
         <div class="form-group">
             <label for="email">
-                {% if client.user.email %}
-                E-mail: {{client.user.email}}
-                {% else %}
-                E-mail: Not specified
-                {% endif %}</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                E-mail:
+                {% if not client.user.email %}
+                 Not specified
+                {% endif %}
+            </label>
+            <input type="email" class="form-control" id="email" name="email" value="{{client.user.email}}" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="CP">
+                Postal code:
+                {% if not client.user.CP %}
+                 Not specified
+                {% endif %}
+                </label>
+            <input type="number" class="form-control" id="CP" name="CP" value="{{client.user.CP}}" placeholder="C/Paraguay nº5, Lleida">
+        </div>
+        <div class="form-group">
+            <label for="ciutat">
+                City:
+                {% if not client.user.ciutat %}
+                 Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="ciutat" name="ciutat" value="{{client.user.ciutat}}" placeholder="C/Paraguay nº5, Lleida">
+        </div>
+        <div class="form-group">
+            <label for="adreca">
+                Adress:
+                {% if not client.user.adreca %}
+                 Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="adreca" name="adreca" value="{{client.user.adreca}}" placeholder="C/Paraguay nº5, Lleida">
         </div>
         <div class="form-group">
             <label for="alias">
-                {% if client.user.username %}
-                Username: {{client.user.username}}
-                {% else %}
+                Username:
+                {% if not client.user.username %}
                 Username: Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="alias" name="alias" placeholder="Alias">
+            <input type="text" class="form-control" id="alias" name="alias" value="{{client.user.username}}" placeholder="Alias">
         </div>
         <div class="form-group">
-            <label for="cardNumber">{% if client.cardNumber %}
-                Card number: {{client.cardNumber}}
-                {% else %}
-                Card number: Not specified
+            <label for="cardNumber">
+                Card number:
+                {% if not client.cardNumber %}
+                    Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="IBAN">
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="{{client.cardNumber}}" placeholder="IBAN">
         </div>
         <p><a href="{% url 'password_reset' %}">Click here if you want to change the password</a></p>
 

@@ -128,7 +128,7 @@ def validate_data(DNI='', phoneNumber=''):
 def profile(request):
     user=request.user
     client = Client.objects.get(user=user)
-    json = {'client': client,}
+    json = {'client': client}
     return render(request, 'User/profile.html', json)
 
 
@@ -137,12 +137,13 @@ def edit_profile(request):
     user = request.user
     client = Client.objects.get(user=user)
     if request.method == 'GET':
-        json = {'client': client, }
+        json = {'client': client }
         return render(request, 'User/ModifyProfile.html', json)
     elif request.method == 'POST':
         first_name = request.POST['first_name']
-        second_name = request.POST['second_name']
-        last_name = request.POST['last_name']
+        nameSplitted = request.POST['last_name'].split()
+        second_name = nameSplitted[0]
+        last_name = nameSplitted[1]
         DNI = request.POST['DNI']
         adreca = request.POST['adreca']
         CP = request.POST['CP']
@@ -152,7 +153,7 @@ def edit_profile(request):
         alias = request.POST['alias']
         cardNumber = request.POST['cardNumber']
 
-        error = validate_data(DNI, cardNumber, phone)
+        error = validate_data(DNI, phone)
         if error:
             json = {'error': error, 'register': False}
             return render(request, 'registration/InvalidValues.html', json)
@@ -162,19 +163,19 @@ def edit_profile(request):
                 json = {'error': 'Username already exist, you will have to choose another one.', 'register': False}
                 return render(request, 'registration/InvalidValues.html', json)
             user.username = alias
-        if name:
+        if first_name and user.first_name != first_name:
             user.first_name = first_name
-        if email:
+        if email and user.email != email:
             user.email = email
-        if phone:
-            client.telephone = phone
-        if adreca and client.adreca != adreca:
-            client.adreca = adreca
+        if phone and user.phone != phone:
+            user.phone = phone
+        if adreca and user.adreca != adreca:
+            user.adreca = adreca
 
 
         user.save()
 
-        if DNI:
+        if DNI and client.DNI != DNI:
             client.DNI = DNI
         if cardNumber:
             client.cardNumber = cardNumber
