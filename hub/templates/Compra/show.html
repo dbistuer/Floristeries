@@ -1,5 +1,5 @@
 {% extends "../base.html"%}
-
+{% load custom_tags %}
 {% block title %} Products bought {% endblock %}
 
 {% block body %}
@@ -28,7 +28,7 @@
                     <td>{{element.producte.name}}</td>
                     <td>{{element.cantitat}}</td>
                     <td>{{element.producte.price}}</td>
-                    <td>{% widthratio element.cantitat 1 element.producte.price %}</td>
+                    <td>{% multiply element.cantitat element.producte.price %}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
