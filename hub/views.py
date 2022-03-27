@@ -106,7 +106,7 @@ def SignIn(request):
                     phone=phone, adreca=adress, CP=CP, ciutat=ciutat, tipo=tipo)
         user.set_password(password)
         user.save()
-        client = Client(user=user,DNI=DNI)
+        client = Client(user=user, DNI=DNI)
         client.save()
         return redirect('login')
 
@@ -152,7 +152,7 @@ def edit_profile(request):
         alias = request.POST['alias']
         cardNumber = request.POST['cardNumber']
 
-        error = validate_data(DNI, cardNumber, phone)
+        error = validate_data(DNI,phone)
         if error:
             json = {'error': error, 'register': False}
             return render(request, 'registration/InvalidValues.html', json)
@@ -162,7 +162,7 @@ def edit_profile(request):
                 json = {'error': 'Username already exist, you will have to choose another one.', 'register': False}
                 return render(request, 'registration/InvalidValues.html', json)
             user.username = alias
-        if name:
+        if first_name:
             user.first_name = first_name
         if email:
             user.email = email
@@ -170,15 +170,11 @@ def edit_profile(request):
             client.telephone = phone
         if adreca and client.adreca != adreca:
             client.adreca = adreca
-
-
         user.save()
 
         if DNI:
             client.DNI = DNI
         if cardNumber:
             client.cardNumber = cardNumber
-
-
         client.save()
         return redirect('profile')

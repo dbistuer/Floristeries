@@ -21,27 +21,19 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Link
+            Productos
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% if user.tipo == 'FL'%}
+            <li><a class="dropdown-item" href="/hub/product/add">Product Add</a></li>
+            <li><a class="dropdown-item" href="/hub/stock/add">Stock Add</a></li>
+            <li><a class="dropdown-item" href="/hub/stock/edit">Stock edit</a></li>
+              {% else %}
             <li><a class="dropdown-item" href="#">Compra</a></li>
             <li><a class="dropdown-item" href="/hub/product/list">Product List</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/hub/product/add">Product Add</a></li>
+              {% endif %}
           </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
+        </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" name="name" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -57,12 +49,11 @@
               </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'profile' %}">Show User</a></li>
-            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit</a></li>
+            <li><a class="dropdown-item" href="/profile/">Edit</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item list-group-item-danger" href="{% url 'logout' %}">Logout</a></li>
+            <li><a class="dropdown-item list-group-item-danger" href="/user/logout">Logout</a></li>
               {% else %}
-            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="/user/login">Login</a></li>
               {% endif %}
         </ul>
           </li>
