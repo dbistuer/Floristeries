@@ -14,75 +14,87 @@ def listProducts(request):
     productes = Producte.objects.all()
     return render(request, "Product/list.html", {"productes": productes})
 
+@login_required
 def addProduct(request):
     if request.method == 'POST':
         name = request.POST['name']
         description = request.POST['description']
-        price = float(request.POST['price'].replace(",","."))
-        Producte.objects.create(name=name, description=description, price=price)
+        Producte.objects.create(name=name, description=description)
         return render(request, 'Product/add.html')
     else:
         return render(request, 'Product/add.html')
 
 def detailProduct(request, id):
-    product = Producte.objects.get(id=id)
-    json={'product':Producte.objects.get(id=id)}
+    producte = Producte.objects.filter(id=id)
+    stocks = Stock.objects.filter(producte_id=producte[0].id).order_by('price')
+    json={'stocks':stocks}
     return render(request, 'Product/detail.html',json)
 
 @login_required
 def buyProduct(request):
     pid = request.POST['id']
-    cantitat = request.POST['cantitat']
-    client = Client.objects.get(user=request.user)
-    floristeria = Floristeria.objects.all()[0]
-    compra = Compra.objects.create(Floristeria=floristeria,Client=client,data=datetime.now())
-    compra.save()
-    element = Elements.objects.create(Compra=compra,Producte=Producte.objects.get(id=pid),cantitat=cantitat)
-    element.save()
-    return render(request,'/')
+    fid = request.POST['idFlor']
+    cantitat = int(request.POST['cantitat'])
+    floristeria = Floristeria.objects.get(id=fid)
+    producte = Producte.objects.get(id=pid)
+    stock = Stock.objects.filter(floristeria=floristeria, producte=producte)
+    if cantitat <= stock[0].cantitat:
+        client = Client.objects.get(user=request.user)
+        compra = Compra.objects.create(floristeria=floristeria,client=client,data=datetime.now())
+        compra.save()
+        element = Elements.objects.create(compra=compra,producte=producte,cantitat=cantitat,price=stock[0].price)
+        element.save()
+        stock[0].cantitat = stock[0].cantitat - cantitat
+        stock.update()
+    else:
+        error += 'Not valid amount.'
+    return render(request,'Floristeria/home.html')
 ###END PRODUCT
-
+@login_required
 def boughtElements(request):
     if request.user.is_authenticated:
         client = Client.objects.get(user=request.user)
         compra = Compra.objects.filter(client=client)
-        elements = Elements.objects.filter(compra__in=compra)  # Corregir
+        elements = Elements.objects.filter(compra__in=compra)
         json={'elements':elements}
         return render(request, 'Compra/show.html',json)
     else:
         return render(request,"Compra/compra_not_authenticated.html")
 ### STROCK
 
+@login_required
 def listStock(request):
-    productes = Stock.objects.all()
+    productes = Stock.objects.filter(floristeria=request.user.floristeria)
     return render(request, "Stock/list.html", {"productes": productes})
 
+@login_required
 def addStock(request):
     if request.method == 'POST':
         idp = request.POST['idProducte']
         producte = Producte.objects.get(pk=idp)
         cantitat = int(request.POST['cantitat'])
-        #TODO: Get idFloristeria del usuari que ha de ser de tipus floristeria
-        Stock.objects.create(Floristeria=Floristeria.objects.get(pk=1), Producte=producte, cantitat=cantitat)
+        preu = float(str(request.POST['price']).replace(',','.'))
+        Stock.objects.create(floristeria=request.user.floristeria, producte=producte, cantitat=cantitat,price=preu)
         return render(request, 'Stock/add.html',{'products':Producte.objects.all()})
     else:
         return render(request, 'Stock/add.html',{'products':Producte.objects.all()})
 
+@login_required
 def editStock(request, id):
-    product = Stock.objects.get(id=id)
+    stock = Stock.objects.get(id=id)
     if request.method == "POST":
-        product.cantitat = int(request.POST['cantitat'])
-        product.save()
-    json = {'product': product}
+        stock.cantitat = int(request.POST['cantitat'])
+        stock.price = float(str(request.POST['price']).replace(',','.'))
+        stock.save()
+    json = {'product': stock}
     return render(request, 'Stock/edit.html', json)
 
-
+@login_required
 def deleteStock(request, id):
     stock = Stock.objects.get(pk=id)
     stock.delete()
     productes = Stock.objects.all()
     return render(request, "Stock/list.html", {"productes": productes})
-
 
 ### END STOCK
 
@@ -175,7 +187,6 @@ def profile(request):
         entity = Floristeria.objects.get(user=user)
     json = {'entity': entity}
     return render(request, 'User/profile.html', json)
-
 
 @login_required
 def edit_profile(request):

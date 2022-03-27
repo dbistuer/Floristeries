@@ -27,8 +27,8 @@
                     <td>{{element.compra.floristeria.user.username}}</td>
                     <td>{{element.producte.name}}</td>
                     <td>{{element.cantitat}}</td>
-                    <td>{{element.producte.price}}</td>
-                    <td>{% multiply element.cantitat element.producte.price %}</td>
+                    <td>{{element.price}}</td>
+                    <td>{% multiply element.cantitat element.price %}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

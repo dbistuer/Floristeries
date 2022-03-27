@@ -36,9 +36,8 @@ class Client(Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
 class Producte(Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50,unique=True)
     description = models.CharField(max_length=500)
-    price = models.DecimalField(decimal_places=2, max_digits=4)
 
     def __str__(self):
         return self.name
@@ -55,6 +54,7 @@ class Elements(Model):
     compra = models.ForeignKey(Compra,on_delete=models.DO_NOTHING)
     producte = models.ForeignKey(Producte,on_delete=models.DO_NOTHING)
     cantitat = models.IntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=6)
 
     class Meta:
         unique_together = (("compra","producte"),)
@@ -63,6 +63,7 @@ class Stock(Model):
     floristeria = models.ForeignKey(Floristeria,on_delete=models.DO_NOTHING)
     producte = models.ForeignKey(Producte,on_delete=models.DO_NOTHING)
     cantitat = models.IntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=6)
 
     class Meta:
         unique_together = (("floristeria","producte"),)

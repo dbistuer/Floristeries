@@ -21,9 +21,9 @@
                 {% if productes|length != 0 %}
                 {% for product in productes %}
                 <tr>
-                    <td>{{product.Producte.name}}</td>
+                    <td>{{product.producte.name}}</td>
                     <td>{{product.cantitat}}</td>
-                    <td>{{product.Producte.price}}</td>
+                    <td>{{product.price}}</td>
                     <td><a class="btn btn-primary" href="{% url 'stockEdit' product.id %}">Edit</a></td>
                     <td><a class="btn btn-danger" href="{% url 'stockDelete' product.id %}">Delete</a></td>
                 </tr>

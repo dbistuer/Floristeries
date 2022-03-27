@@ -12,24 +12,30 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th hidden>Id</th>
+                        <th hidden>IdProduct</th>
+                        <th hidden>IdFloristeria</th>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Number of products</th>
                         <th>Price</th>
                         <th>Amount</th>
                         <td colspan="2">Detail</td>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for stock in stocks %}
                     <tr>
-                        <td id="id" hidden><input type="number" value="{{product.id}}" id="id" name="id" required></td></td>
-                        <td id="name">{{product.name}}</td>
-                        <td>{{product.description}}</td>
+                        <td id="id" hidden><input type="number" value="{{stock.producte.id}}" id="id" name="id" readonly required></td></td>
+                        <td id="idFlor" hidden><input type="number" value="{{stock.floristeria.id}}" id="idFlor" name="idFlor" readonly required></td></td>
+                        <td id="name">{{stock.producte.name}}</td>
+                        <td>{{stock.producte.description}}</td>
+                        <td>{{ stock.cantitat }}</td>
                         <td><input type="number" value="1" id="cantitat" name="cantitat" required></td>
-                        <td>{{product.price}}</td>
+                        <td>{{stock.price}}</td>
                         <td><BUTTON class="btn btn-primary" type="submit">Buy</BUTTON></td>
                         <td><a class="btn btn-warning" href="">Chart</a></td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

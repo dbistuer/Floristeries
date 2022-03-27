@@ -29,12 +29,12 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% if user.tipo == 'FL'%}
-            <li><a class="dropdown-item" href="/hub/product/add">Product Add</a></li>
-            <li><a class="dropdown-item" href="/hub/stock/add">Stock Add</a></li>
-            <li><a class="dropdown-item" href="/hub/stock/edit">Stock edit</a></li>
+            <li><a class="dropdown-item" href="{% url 'productAdd' %}">Product Add</a></li>
+            <li><a class="dropdown-item" href="{% url 'stockAdd' %}">Stock Add</a></li>
+            <li><a class="dropdown-item" href="{% url 'stockList' %}">Stock list</a></li>
               {% else %}
             <li><a class="dropdown-item" href="{% url 'productsBought'%}">Compra</a></li>
-            <li><a class="dropdown-item" href="/hub/product/list">Product List</a></li>
+            <li><a class="dropdown-item" href="{% url 'productList'%}">Product List</a></li>
               {% endif %}
           </ul>
         </ul>

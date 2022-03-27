@@ -13,7 +13,6 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Price</th>
                     <td>Detail</td>
                 </tr>
                 </thead>
@@ -23,7 +22,6 @@
                 <tr>
                     <td>{{product.name}}</td>
                     <td>{{product.description}}</td>
-                    <td>{{product.price}}</td>
                     <td><a class="btn btn-primary" href="{% url 'productDetail' product.id %}">Detail</a></td>
                 </tr>
                 {% endfor %}
