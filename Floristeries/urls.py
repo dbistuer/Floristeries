@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('hub/',include('hub.urls')),
     path('user/', include('django.contrib.auth.urls')),
-    path('profile/', profile, name='profile'),
-    path('profile/edit/', edit_profile, name='edit_profile'),
+    path('User/', profile, name='profile'),
+    path('User/edit/', edit_profile, name='edit_profile'),
 ]
