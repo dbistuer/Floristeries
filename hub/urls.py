@@ -6,6 +6,7 @@ urlpatterns = [
     path('product/list',views.listProducts, name='productList'),
     path('product/add',views.addProduct, name='productAdd'),
     path('product/detail/<int:id>',views.detailProduct, name='productDetail'),
+    path('product/buy',views.buyProduct,name='buyProduct'),
     #sdfsdf
     path('compra/show',views.boughtElements, name='productsBought'),
     #stock

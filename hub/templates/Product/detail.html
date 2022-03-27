@@ -3,30 +3,37 @@
 {% block title %} {{ product.name }} {% endblock %}
 
 {% block body %}
-
 <h1>{{ product.name }} </h1>
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div clas="table-responsive py-2">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <td>Detail</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{product.name}}</td>
-                    <td>{{product.description}}</td>
-                    <td>{{product.price}}</td>
-                    <td><a class="btn btn-primary" href="">Buy</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <form action="{% url 'buyProduct' %}" method="POST">
+            {% csrf_token %}
+            <div clas="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th hidden>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Amount</th>
+                        <td colspan="2">Detail</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="id" hidden><input type="number" value="{{product.id}}" id="id" name="id" required></td></td>
+                        <td id="name">{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td><input type="number" value="1" id="cantitat" name="cantitat" required></td>
+                        <td>{{product.price}}</td>
+                        <td><BUTTON class="btn btn-primary" type="submit">Buy</BUTTON></td>
+                        <td><a class="btn btn-warning" href="">Chart</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </div>
 </div>
 

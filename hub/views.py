@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -28,12 +28,24 @@ def detailProduct(request, id):
     product = Producte.objects.get(id=id)
     json={'product':Producte.objects.get(id=id)}
     return render(request, 'Product/detail.html',json)
+
+@login_required
+def buyProduct(request):
+    pid = request.POST['id']
+    cantitat = request.POST['cantitat']
+    client = Client.objects.get(user=request.user)
+    floristeria = Floristeria.objects.all()[0]
+    compra = Compra.objects.create(Floristeria=floristeria,Client=client,data=datetime.now())
+    compra.save()
+    element = Elements.objects.create(Compra=compra,Producte=Producte.objects.get(id=pid),cantitat=cantitat)
+    element.save()
+    return render(request,'Compra/show.html')
 ###END PRODUCT
 
 def boughtElements(request):
     if request.user.is_authenticated:
         client = Client.objects.get(user=request.user)
-        compra = Compra(Client=client,data=datetime.date.today(),Floristeria=Floristeria.objects.get(pk=1))
+        compra = Compra.objects.filter(Client=client)
         elements = Elements(Compra=compra,cantitat=request.POST['cantitat'],Producte=request.POST['Products']) #Corregir
         json={'elements':elements}
         return render(request, 'Compra/show.html')
