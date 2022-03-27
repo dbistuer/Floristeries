@@ -228,16 +228,3 @@ def edit_profile(request):
         client.save()
         return redirect('profile')
 
-@login_required
-def password_reset(request):
-    if request.method == 'GET':
-        return render(request,'Registration/password_reset_form.html')
-    elif request.method == 'POST':
-        return render(request, 'Registration/password_reset_email.html')
-
-@login_required
-def password_reset_confirm(request):
-    if request.method == 'GET':
-        return render(request, 'Registration/password_reset_confirm.html')
-    elif request.method == 'POST':
-        return render(request, '/')

@@ -25,6 +25,4 @@ urlpatterns = [
     path('User/', include('django.contrib.auth.urls')),
     path('User/', profile, name='profile'),
     path('User/edit/', edit_profile, name='edit_profile'),
-    path('Registration/',password_reset,name="password_reset"),
-    path('Registration/',password_reset_confirm,name="password_reset_confirm")
 ]
