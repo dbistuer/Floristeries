@@ -49,11 +49,12 @@
               </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="/profile/">Edit</a></li>
+<li><a class="dropdown-item" href="{% url 'profile' %}">Show User</a></li>
+            <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item list-group-item-danger" href="/user/logout">Logout</a></li>
+            <li><a class="dropdown-item list-group-item-danger" href="{% url 'logout' %}">Logout</a></li>
               {% else %}
-            <li><a class="dropdown-item" href="/user/login">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
               {% endif %}
         </ul>
           </li>

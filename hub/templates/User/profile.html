@@ -13,14 +13,8 @@ Profile
 <p> Name: Not specified</p>
 {% endif %}
 
-{% if client.user.second_name %}
-<p> Name: {{client.user.second_name}}</p>
-{% else %}
-<p> Name: Not specified</p>
-{% endif %}
-
 {% if client.user.last_name %}
-<p> Name: {{client.user.last_name}}</p>
+<p> Last names: {{client.user.last_name}}</p>
 {% else %}
 <p> Name: Not specified</p>
 {% endif %}
