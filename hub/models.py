@@ -44,26 +44,26 @@ class Producte(Model):
         return self.name
 
 class Compra(Model):
-    Floristeria = models.ForeignKey(Floristeria,on_delete=models.DO_NOTHING)
-    Client = models.ForeignKey(Client,on_delete=models.DO_NOTHING)
+    floristeria = models.ForeignKey(Floristeria,on_delete=models.DO_NOTHING)
+    client = models.ForeignKey(Client,on_delete=models.DO_NOTHING)
     data = models.DateTimeField()
 
     class Meta:
-        unique_together = (("Floristeria","Client"),)
+        unique_together = (("floristeria","client","data"),)
 
 class Elements(Model):
-    Compra = models.ForeignKey(Compra,on_delete=models.DO_NOTHING)
-    Producte = models.ForeignKey(Producte,on_delete=models.DO_NOTHING)
+    compra = models.ForeignKey(Compra,on_delete=models.DO_NOTHING)
+    producte = models.ForeignKey(Producte,on_delete=models.DO_NOTHING)
     cantitat = models.IntegerField()
 
     class Meta:
-        unique_together = (("Compra","Producte"),)
+        unique_together = (("compra","producte"),)
 
 class Stock(Model):
-    Floristeria = models.ForeignKey(Floristeria,on_delete=models.DO_NOTHING)
-    Producte = models.ForeignKey(Producte,on_delete=models.DO_NOTHING)
+    floristeria = models.ForeignKey(Floristeria,on_delete=models.DO_NOTHING)
+    producte = models.ForeignKey(Producte,on_delete=models.DO_NOTHING)
     cantitat = models.IntegerField()
 
     class Meta:
-        unique_together = (("Floristeria","Producte"),)
+        unique_together = (("floristeria","producte"),)
 

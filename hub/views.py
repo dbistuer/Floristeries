@@ -39,16 +39,16 @@ def buyProduct(request):
     compra.save()
     element = Elements.objects.create(Compra=compra,Producte=Producte.objects.get(id=pid),cantitat=cantitat)
     element.save()
-    return render(request,'Compra/show.html')
+    return render(request,'/')
 ###END PRODUCT
 
 def boughtElements(request):
     if request.user.is_authenticated:
         client = Client.objects.get(user=request.user)
-        compra = Compra.objects.filter(Client=client)
-        elements = Elements(Compra=compra,cantitat=request.POST['cantitat'],Producte=request.POST['Products']) #Corregir
+        compra = Compra.objects.filter(client=client)
+        elements = Elements.objects.filter(compra__in=compra)  # Corregir
         json={'elements':elements}
-        return render(request, 'Compra/show.html')
+        return render(request, 'Compra/show.html',json)
     else:
         return render(request,"Compra/compra_not_authenticated.html")
 ### STROCK

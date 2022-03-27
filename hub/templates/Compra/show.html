@@ -23,12 +23,12 @@
                 {% if not elements.count == 0 %}
                 {% for element in elements %}
                 <tr>
-                    <td>{{element.compra_set.data}}</td>
-                    <td>{{element.compra_set.floristeria_set.nom}}</td>
-                    <td>{{element.product_set.name}}</td>
+                    <td>{{element.compra.data|date:"d/M/Y h:m"}}</td>
+                    <td>{{element.compra.floristeria.user.username}}</td>
+                    <td>{{element.producte.name}}</td>
                     <td>{{element.cantitat}}</td>
-                    <td>{{element.product_set.price}}</td>
-                    <td></td>
+                    <td>{{element.producte.price}}</td>
+                    <td>{% widthratio element.cantitat 1 element.producte.price %}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
