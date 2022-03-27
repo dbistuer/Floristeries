@@ -24,90 +24,102 @@ User management
         <div class="form-group">
             <label for="first_name">
                 Name:
-                {% if not client.user.first_name %}
+                {% if not entity.user.first_name %}
                  Not specified
                 {% endif %}</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" value="{{client.user.first_name}}" placeholder="Name">
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{entity.user.first_name}}" placeholder="Name">
         </div>
         <div class="form-group">
             <label for="last_name">
                 Last names:
-                {% if not client.user.last_name %}
+                {% if not entity.user.last_name %}
                  Not specified
                 {% endif %}</label>
-            <input type="text" class="form-control" id="last_name" name="last_name" value="{{client.user.last_name}}" placeholder="Name">
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{entity.user.last_name}}" placeholder="Name">
         </div>
+    {% if entity.user.tipo == entity.user.entityE %}
         <div class="form-group">
             <label for="DNI">
                 DNI:
-                {% if not client.DNI %}
+                {% if not entity.DNI %}
                  Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="DNI" name="DNI" value="{{client.DNI}}" placeholder="79038471B">
+            <input type="text" class="form-control" id="DNI" name="DNI" value="{{entity.DNI}}" placeholder="79038471B">
         </div>
+    {% else %}
+        <div class="form-group">
+            <label for="NIF">
+                NIF:
+                {% if not entity.NIF %}
+                 Not specified
+                {% endif %}
+                </label>
+            <input type="text" class="form-control" id="NIF" name="NIF" value="{{entity.NIF}}" placeholder="79038471B">
+        </div>
+    {% endif %}
         <div class="form-group">
             <label for="phone">
                 Phone number:
-                {% if not client.user.phone %}
+                {% if not entity.user.phone %}
                  Not specified
                 {% endif %}
                 </label>
-            <input type="number" class="form-control" id="phone" name="phone" value="{{client.user.phone}}" placeholder="973567802">
+            <input type="number" class="form-control" id="phone" name="phone" value="{{entity.user.phone}}" placeholder="973567802">
         </div>
         <div class="form-group">
             <label for="email">
                 E-mail:
-                {% if not client.user.email %}
+                {% if not entity.user.email %}
                  Not specified
                 {% endif %}
             </label>
-            <input type="email" class="form-control" id="email" name="email" value="{{client.user.email}}" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" name="email" value="{{entity.user.email}}" placeholder="Enter email">
         </div>
         <div class="form-group">
             <label for="CP">
                 Postal code:
-                {% if not client.user.CP %}
+                {% if not entity.user.CP %}
                  Not specified
                 {% endif %}
                 </label>
-            <input type="number" class="form-control" id="CP" name="CP" value="{{client.user.CP}}" placeholder="C/Paraguay nº5, Lleida">
+            <input type="number" class="form-control" id="CP" name="CP" value="{{entity.user.CP}}" placeholder="C/Paraguay nº5, Lleida">
         </div>
         <div class="form-group">
             <label for="ciutat">
                 City:
-                {% if not client.user.ciutat %}
+                {% if not entity.user.ciutat %}
                  Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="ciutat" name="ciutat" value="{{client.user.ciutat}}" placeholder="C/Paraguay nº5, Lleida">
+            <input type="text" class="form-control" id="ciutat" name="ciutat" value="{{entity.user.ciutat}}" placeholder="C/Paraguay nº5, Lleida">
         </div>
         <div class="form-group">
             <label for="adreca">
                 Adress:
-                {% if not client.user.adreca %}
+                {% if not entity.user.adreca %}
                  Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="adreca" name="adreca" value="{{client.user.adreca}}" placeholder="C/Paraguay nº5, Lleida">
+            <input type="text" class="form-control" id="adreca" name="adreca" value="{{entity.user.adreca}}" placeholder="C/Paraguay nº5, Lleida">
         </div>
         <div class="form-group">
             <label for="alias">
                 Username:
-                {% if not client.user.username %}
+                {% if not entity.user.username %}
                 Username: Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="alias" name="alias" value="{{client.user.username}}" placeholder="Alias">
+            <input type="text" class="form-control" id="alias" name="alias" value="{{entity.user.username}}" placeholder="Alias">
         </div>
         <div class="form-group">
             <label for="cardNumber">
                 Card number:
-                {% if not client.cardNumber %}
+                {% if not entity.cardNumber %}
                     Not specified
                 {% endif %}
                 </label>
-            <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="{{client.cardNumber}}" placeholder="IBAN">
+            <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="{{entity.cardNumber}}" placeholder="IBAN">
         </div>
         <p><a href="{% url 'password_reset' %}">Click here if you want to change the password</a></p>
 

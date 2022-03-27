@@ -74,47 +74,6 @@ def deleteStock(request, id):
 
 ### END STOCK
 
-def SignIn(request):
-    if request.method == 'GET':
-        return render(request, 'Registration/signin.html')
-
-    if request.method == 'POST':
-        name = request.POST['name']
-        second_name = request.POST['second_name']
-        last_name = request.POST['last_name']
-        DNI = request.POST['DNI']
-        ciutat = request.POST['ciutat']
-        CP = request.POST['CP']
-        adress = request.POST['adress']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        alias = request.POST['alias']
-        password = request.POST['password']
-        tipo = request.POST['tipo']
-
-        # Validate input data
-        if not (name and DNI and adress and phone and email and alias and password):
-            # Missing values
-            return render(request, 'Registration/MissingValues.html')
-
-        error = validate_data(DNI,phone)
-        if error:
-            json = {'error': error, 'register': True}
-            return render(request, 'Registration/InvalidValues.html', json)
-
-        if User.objects.filter(username=alias).exists():
-            json = {'error': 'Username already exist, you will have to choose another one.', 'register': True}
-            return render(request, 'Registration/InvalidValues.html', json)
-
-        user = User(username=alias, email=email,  password=password,
-                    first_name=name,last_name=second_name+' '+last_name,
-                    phone=phone, adreca=adress, CP=CP, ciutat=ciutat, tipo=tipo)
-        user.set_password(password)
-        user.save()
-        client = Client(user=user, DNI=DNI)
-        client.save()
-        return redirect('login')
-
 def SignIn(request,tipo):
     tipo = str(tipo)[1:len(str(tipo))]
     if request.method == 'GET':
@@ -198,17 +157,23 @@ def validate_data(DNI='', phone='',NIF='',tipo=''):
 @login_required
 def profile(request):
     user=request.user
-    client = Client.objects.get(user=user)
-    json = {'client': client}
+    if user.tipo == User.CLIENTE:
+        entity = Client.objects.get(user=user)
+    else:
+        entity = Floristeria.objects.get(user=user)
+    json = {'entity': entity}
     return render(request, 'User/profile.html', json)
 
 
 @login_required
 def edit_profile(request):
     user = request.user
-    client = Client.objects.get(user=user)
+    if user.tipo == User.CLIENTE:
+        entity = Client.objects.get(user=user)
+    else:
+        entity = Floristeria.objects.get(user=user)
     if request.method == 'GET':
-        json = {'client': client }
+        json = {'entity': entity }
         return render(request, 'User/ModifyProfile.html', json)
     elif request.method == 'POST':
         first_name = request.POST['first_name']
