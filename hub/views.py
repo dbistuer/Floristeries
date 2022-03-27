@@ -106,7 +106,7 @@ def SignIn(request):
                     phone=phone, adreca=adress, CP=CP, ciutat=ciutat, tipo=tipo)
         user.set_password(password)
         user.save()
-        client = Client(user=user,DNI=DNI)
+        client = Client(user=user, DNI=DNI)
         client.save()
         return redirect('login')
 
@@ -171,15 +171,11 @@ def edit_profile(request):
             user.phone = phone
         if adreca and user.adreca != adreca:
             user.adreca = adreca
-
-
         user.save()
 
         if DNI and client.DNI != DNI:
             client.DNI = DNI
         if cardNumber:
             client.cardNumber = cardNumber
-
-
         client.save()
         return redirect('profile')
