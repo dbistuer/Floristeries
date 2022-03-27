@@ -6,7 +6,14 @@ Sign in
 
 {% block body %}
     <div class="container" style="margin-top: 50px">
-    <h2>Sign in</h2>
+    <h2>
+        Sign in
+        {% if tipo == 'FL' %}
+        Floristeria
+        {% else %}
+        Client
+        {% endif %}
+    </h2>
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -30,10 +37,17 @@ Sign in
             <label for="last_name">Last Name</label>
             <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
         </div>
+        {% if tipo == 'FL' %}
+        <div class="form-group">
+            <label for="NIF">NIF</label>
+            <input type="text" class="form-control" id="NIF" name="NIF" placeholder="79038471B" required>
+        </div>
+        {% else %}
         <div class="form-group">
             <label for="DNI">DNI</label>
             <input type="text" class="form-control" id="DNI" name="DNI" placeholder="79038471B" required>
         </div>
+        {% endif %}
         <div class="form-group">
             <label for="ciutat">City</label>
             <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Lleida">
@@ -60,11 +74,7 @@ Sign in
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Name" required>
-        </div>
-        <div class="form-group" hidden>
-            <label for="tipo">Type</label>
-            <input type="password" class="form-control" id="tipo" name="tipo" value="CL" >
+            <input type="password" class="form-control" id="password" name="password" placeholder="******" required>
         </div>
         <div align="center">
             <button type="submit" class="btn btn-primary">Register</button>

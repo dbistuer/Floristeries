@@ -40,8 +40,10 @@ Login
     </form>
     {# Assumes you setup the password_reset view in your URLconf #}
     <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-    <p><a href="{%url 'signin' %}">Not registered yet? Create a new account.</a></p>
-
+    {% with client='\CL' floristeria='\FL' %}
+    <p><a href="{%url 'signin' client %}">Not registered yet? Create a new account.</a></p>
+    <p><a href="{%url 'signin' floristeria %}">Not registered yet? Create a new eterprise account.</a></p>
+    {% endwith %}
 {% endblock %}
     
     

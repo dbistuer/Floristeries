@@ -115,16 +115,82 @@ def SignIn(request):
         client.save()
         return redirect('login')
 
-def validate_data(DNI='', phoneNumber=''):
+def SignIn(request,tipo):
+    tipo = str(tipo)[1:len(str(tipo))]
+    if request.method == 'GET':
+        if tipo == User.CLIENTE or tipo == User.FLORISTERIA:
+            json = {'tipo':tipo}
+            return render(request, 'Registration/signin.html',json)
+        else:
+            return render(request, '/')
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        second_name = request.POST['second_name']
+        last_name = request.POST['last_name']
+        if tipo == User.CLIENTE:
+            DNI = request.POST['DNI']
+        elif tipo == User.FLORISTERIA:
+            NIF = request.POST['NIF']
+        else:
+            return render(request, '/')
+        ciutat = request.POST['ciutat']
+        CP = request.POST['CP']
+        adress = request.POST['adress']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        alias = request.POST['alias']
+        password = request.POST['password']
+
+
+        # Validate input data
+        if tipo == User.CLIENTE:
+            if not (name and DNI and adress and phone and email and alias and password):
+                return render(request, 'Registration/MissingValues.html')
+            error = validate_data(DNI=DNI, phone=phone,tipo=tipo)
+        else:
+            if not (name and NIF and adress and phone and email and alias and password):
+                return render(request, 'Registration/MissingValues.html')
+            error = validate_data(phone=phone, NIF=NIF,tipo=tipo)
+
+        if error:
+            json = {'error': error, 'register': True}
+            return render(request, 'Registration/InvalidValues.html', json)
+
+        if User.objects.filter(username=alias).exists():
+            json = {'error': 'Username already exist, you will have to choose another one.', 'register': True}
+            return render(request, 'Registration/InvalidValues.html', json)
+
+        user = User(username=alias, email=email,  password=password,
+                    first_name=name,last_name=second_name+' '+last_name,
+                    phone=phone, adreca=adress, CP=CP, ciutat=ciutat, tipo=tipo)
+        user.set_password(password)
+        user.save()
+        if tipo == User.CLIENTE:
+            client = Client(user=user, DNI=DNI)
+            client.save()
+        else:
+            floristeria = Floristeria(user=user, NIF=NIF)
+            floristeria.save()
+        return redirect('login')
+
+def validate_data(DNI='', phone='',NIF='',tipo=''):
     error = ''
-    if DNI:
+    if tipo == 'CL':
+        if DNI:
+            try:
+                DNIValidator(DNI)
+            except:
+                error += 'DNI is not valid.'
+    else:
+        if NIF:
+            try:
+                NIFValidator(NIF)
+            except:
+                error += 'NIF is not valid.'
+    if phone:
         try:
-            DNIValidator(DNI)
-        except:
-            error += 'DNI is not valid.'
-    if phoneNumber:
-        try:
-            PhoneValidator(phoneNumber)
+            PhoneValidator(phone)
         except:
             error += 'Phone number is not valid.   '
     return error
@@ -184,3 +250,17 @@ def edit_profile(request):
             client.cardNumber = cardNumber
         client.save()
         return redirect('profile')
+
+@login_required
+def password_reset(request):
+    if request.method == 'GET':
+        return render(request,'Registration/password_reset_form.html')
+    elif request.method == 'POST':
+        return render(request, 'Registration/password_reset_email.html')
+
+@login_required
+def password_reset_confirm(request):
+    if request.method == 'GET':
+        return render(request, 'Registration/password_reset_confirm.html')
+    elif request.method == 'POST':
+        return render(request, '/')
