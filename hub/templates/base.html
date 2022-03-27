@@ -29,7 +29,7 @@
             <li><a class="dropdown-item" href="/hub/stock/add">Stock Add</a></li>
             <li><a class="dropdown-item" href="/hub/stock/edit">Stock edit</a></li>
               {% else %}
-            <li><a class="dropdown-item" href="#">Compra</a></li>
+            <li><a class="dropdown-item" href="{% url 'productsBought'%}">Compra</a></li>
             <li><a class="dropdown-item" href="/hub/product/list">Product List</a></li>
               {% endif %}
           </ul>

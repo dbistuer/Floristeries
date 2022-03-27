@@ -29,11 +29,13 @@ def detailProduct(request, id):
 ###END PRODUCT
 
 def boughtElements(request):
-    compra = request.compra
-    elements = Elements.objects.get(Compra=compra)
-    json={'elements':elements}
-    return render(request, 'Compra/show.html')
-
+    if request.user.is_authenticated:
+        compra = request.compra
+        elements = Elements.objects.get(Compra=compra)
+        json={'elements':elements}
+        return render(request, 'Compra/show.html')
+    else:
+        return render(request,"Compra/compra_not_authenticated.html")
 ### STROCK
 
 def listStock(request):
